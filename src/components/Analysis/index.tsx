@@ -3,8 +3,8 @@ import store from "../../store/index";
 import styles from "./style.module.css";
 
 const Analysis = () => {
-     const analysis = store.editor.analysis.hook();
-
+     const files = store.files;
+     //const 
     //  console.log(files);
 
      const fileAnalysis = [
@@ -32,7 +32,7 @@ const Analysis = () => {
         "usedDeprecatedRules": []
     }
 ];
-    console.log("Analisys",analysis);
+    // console.log(fileAnalysis);
     const errorCount = fileAnalysis[0].errorCount;
     const warningCount = fileAnalysis[0].warningCount;
     const messages = fileAnalysis[0].messages;
