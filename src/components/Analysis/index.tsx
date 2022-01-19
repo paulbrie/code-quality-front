@@ -3,9 +3,7 @@ import store from "../../store/index";
 import styles from "./style.module.css";
 
 const Analysis = () => {
-     const files = store.files;
-     //const 
-    //  console.log(files);
+     const fileAnalysed = store.editor.analysis.hook();
 
      const fileAnalysis = [
     {
@@ -32,11 +30,10 @@ const Analysis = () => {
         "usedDeprecatedRules": []
     }
 ];
-    // console.log(fileAnalysis);
+    console.log("Analysed:",fileAnalysed?.errorCount);
     const errorCount = fileAnalysis[0].errorCount;
     const warningCount = fileAnalysis[0].warningCount;
     const messages = fileAnalysis[0].messages;
-    // console.log(messages);
 
     return (
         <div className={styles["analysisComponent"]}>
@@ -44,14 +41,14 @@ const Analysis = () => {
         <hr style={{borderTop: "1px solid red"}}/>
         <div>Total: <span style={{color: "red"}}>errors</span>: {errorCount} | <span style={{color: "yellow"}}>warnings</span>: {warningCount}</div><br/>
         <div>
-            {errorCount !== 0 && messages.map((m, index) => (
+            {errorCount !== 0 && errorCount !== null && messages.map((m, index) => (
                 <div>
                 <div className={styles["errorMessage"]}>Error {index+1}: {m.message}
                 <div>Lines: {m.line} - {m.endLine}, Columns: {m.column} - {m.endColumn}, ruleId: {m.ruleId}</div><br/>
                 </div> 
                 </div>
             ))}
-            {warningCount !== 0 && messages.map((m, index) => (
+            {warningCount !== 0 && warningCount !== null && messages.map((m, index) => (
                 <div>
                 <div className={styles["warningMessage"]}>Warning {index+1}: {m.message}
                 <div>Lines: {m.line} - {m.endLine}, Columns: {m.column} - {m.endColumn}</div><br/>
