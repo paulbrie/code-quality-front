@@ -8,7 +8,7 @@ const Analysis = () => {
     const errorCount = fileAnalysed?.errorCount;
     const warningCount = fileAnalysed?.warningCount;
     const messages = fileAnalysed?.messages;
-    
+     
     return (
         <div className={styles["analysisComponent"]}>
         <div style={{ fontSize: "18px"}}>Analysis</div>
@@ -17,16 +17,16 @@ const Analysis = () => {
         <div>
             {errorCount !== 0 && errorCount !== null && messages?.map((m, index) => (
                 <div>
-                <div className={styles["errorMessage"]}>Error {index+1}: {m.message}
+               {m.severity === 2 && <div className={styles["errorMessage"]}>Error {index+1}: {m.message}
                 <div className={styles["coordonates"]}>L : {m.line}, C : {m.column},</div><br/>
-                </div> 
+                </div> }
                 </div>
             ))}
             {warningCount !== 0 && warningCount !== null && messages?.map((m, index) => (
                 <div>
-                <div className={styles["warningMessage"]}>Warning {index+1}: {m.message}
+                {m.severity === 1 &&<div className={styles["warningMessage"]}>Warning {index+1}: {m.message}
                 <div className={styles["coordonates"]}>L : {m.line}, C : {m.column}</div><br/>
-                </div> 
+                </div> }
                 </div>
             ))}
         </div>
