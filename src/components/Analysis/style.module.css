@@ -1,0 +1,13 @@
+.analysisComponent{
+    font-size: 12px;
+    background-color: #222;
+    color: #fff;
+    padding: 16px;
+}
+
+.errorMessage{
+    color:red;
+}
+.warningMessage{
+    color: yellow;
+}

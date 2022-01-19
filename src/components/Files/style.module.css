@@ -1,0 +1,26 @@
+.single-file:hover {
+  border: 1px solid grey;
+  border-radius: 4px;
+
+}
+
+.single-file {
+  cursor: pointer;
+  padding: 4px;
+  color: #b2b2b2;
+  margin-bottom: 4px;
+  max-height: 32px;
+  overflow: hidden;
+  outline: none;
+  border-width: 1px;
+  border-color: transparent;
+  background-color: transparent;
+  flex: 1 1 0%;
+}
+
+.active-file {
+  background-color: #363636;
+  border-radius: 4px;
+  border-width: 1px;
+  border-color: transparent;
+}

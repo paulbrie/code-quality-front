@@ -1,0 +1,1 @@
+export const CODE_VALIDATOR_API_URL = "https://code-quality-validator-w8vhj.ondigitalocean.app";
