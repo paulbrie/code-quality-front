@@ -52,7 +52,7 @@ const Monaco: React.FC<{
 
       editorInstance.current.onDidChangeModelContent(() => {
         // @ts-ignore
-        console.log("Editor instance",editorInstance.current.getValue());
+        console.log("Editor instance", editorInstance.current.getValue());
         if (onValueChange) {
           onValueChange(editorInstance.current.getValue() || "");
         }
