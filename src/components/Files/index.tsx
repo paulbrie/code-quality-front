@@ -5,8 +5,7 @@ import styles from "./style.module.css";
 const Files = () => {
     const allFiles = store.files.static;
     const selectedFile = store.files.selectedFile.hook();
-    console.log("Selected", selectedFile);
-    
+
     return (
       <>
        Files
