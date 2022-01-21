@@ -2,19 +2,6 @@ import Subject from "../lib/subjecto";
 import { lintCode } from "../services/api";
 
 const store = {
-  editor: {
-    value: new Subject<string>("console.log('test');"),
-    checkCode: async (code: string) => {
-      try {
-        const result = await lintCode({ code });
-        console.log('result', result)
-        store.editor.analysis.next(result);
-      } catch (err) {
-        console.log('checkCode request err: ', err);
-      }
-    },
-    analysis: new Subject(null),
-  },
   files: {
     selectedFile: new Subject('file1'),
     static: {
@@ -47,9 +34,32 @@ const store = {
         };
 
         export default store;
-      `
+      `,
+      'text.js': `
+        function a(x) {
+          if (x > 1) {
+              return x; // 1st path
+          } else if (x > 2) {
+              return x+1; // 2nd path
+          } else {
+              return 4; // 3rd path
+          }
+      }
+      `,
     }
-  }
+  },
+  editor: {
+    value: new Subject<string>(''),
+    analysis: new Subject(null),
+    checkCode: async (code: string) => {
+      try {
+        const result = await lintCode({ code });
+        store.editor.analysis.next(result);
+      } catch (err) {
+        console.log('checkCode request err: ', err);
+      }
+    },
+  },
 };
 
 export default store;

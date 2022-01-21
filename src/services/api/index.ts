@@ -8,6 +8,8 @@ export function lintCode(data) {
     // mode: 'cors',
     body: data ? JSON.stringify(data) : null
   };
+
+//   const url = 'http://localhost:8080'
   return fetch(CODE_VALIDATOR_API_URL, options)
     .then(response => {
       return response.json();

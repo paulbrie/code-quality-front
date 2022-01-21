@@ -15,18 +15,36 @@ const Home = () => {
   );
 
   const value = store.editor.value.hook();
+  const selectedFile = store.files.selectedFile.hook();
+
   const handleOnEditorMount = (editor: monaco.editor.IEditor) => {
+    const files = store.files.static;
+    const firstFile = Object.keys(files)[0];
+    const firstFileContent = files[firstFile];
+
     monaco.current = editor
     // @ts-ignore
-    monaco.current.getModel().setValue(value)
+    monaco.current && monaco.current.getModel().setValue(firstFileContent)
+  };
+
+  const handleOnFileChange = (editor: monaco.editor.IEditor) => {
+    monaco.current = editor
+    // @ts-ignore
+    monaco.current && monaco.current.getModel().setValue(value)
   };
 
   useEffect(() => {
-    console.log('val', value)
     worker.current.postMessage({
       value,
     });
   }, [value]);
+
+  useEffect(() => {
+    const files = store.files.static;
+    const firstFile = Object.keys(files)[0];
+    store.editor.value.next(files[firstFile] || '');
+    store.files.selectedFile.next(firstFile);
+  }, [])
 
   useEffect(() => {
     return () => worker.current.terminate();
@@ -46,6 +64,7 @@ const Home = () => {
       <div>
         <Editor
           onMount={handleOnEditorMount}
+          onFileChange={handleOnFileChange}
           shouldFillAllMinus={500}
           onValueChange={(value) => {
             console.log('editor value:',value)
@@ -53,6 +72,7 @@ const Home = () => {
             store.editor.checkCode(value);
           }}
           value={value}
+          file={selectedFile}
         />
       </div>
       <Analysis />

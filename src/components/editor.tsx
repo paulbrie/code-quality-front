@@ -21,13 +21,14 @@ import React, { useEffect, useRef } from "react";
  * 
  */
 
-
 const Monaco: React.FC<{
   shouldFillAllMinus?: number;
   onMount?: (editor: monaco.editor.ICodeEditor) => void;
+  onFileChange?: (editor: monaco.editor.ICodeEditor) => void;
+  file?: string;
   onValueChange?: (value: string) => void;
   value: string
-}> = ({ shouldFillAllMinus, onMount, onValueChange, value }) => {
+}> = ({ shouldFillAllMinus, onMount, onFileChange, onValueChange, value, file }) => {
   const editorElement = useRef<HTMLDivElement>(null!);
   const editorInstance = useRef<monaco.editor.ICodeEditor>(null!);
   const onResize = () => {
@@ -48,6 +49,8 @@ const Monaco: React.FC<{
       editorInstance.current = monaco.editor.create(editorElement.current, {
         value: "loading...",
         language: "javascript",
+        theme: 'vs-dark',
+        scrollBeyondLastLine: false,
       });
 
       editorInstance.current.onDidChangeModelContent(() => {
@@ -74,7 +77,11 @@ const Monaco: React.FC<{
     };
   }, []);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+      // @ts-ignore
+      onFileChange(editorInstance.current);
+  }, [file]);
+
   return <div style={{ height: "100%" }} ref={editorElement} />;
 };
 
